@@ -11,7 +11,7 @@ class ProductsRepository(ProductsRepositoryInterface):
     def find_product_by_name(self, product_name) -> tuple:
         cursor = self.__conn.cursor()
         cursor.execute(
-            "SELECT * FROM products WHERE name ?",
+            "SELECT * FROM products WHERE name = ?",
             (product_name,)
         )
         product = cursor.fetchone()
@@ -26,8 +26,19 @@ class ProductsRepository(ProductsRepositoryInterface):
             VALUES
                 (?, ?, ?)
             """,
-            name,
-            price,
-            quantity
+            (name,
+             price,
+             quantity,
+             )
+        )
+        self.__conn.commit()
+
+    def delete_product(self, id) -> None:
+        cursor = self.__conn.cursor()
+        cursor.execute(
+            """
+            DELETE FROM products where id = ? 
+            """,
+            (id,)
         )
         self.__conn.commit()

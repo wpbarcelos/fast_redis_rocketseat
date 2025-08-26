@@ -9,3 +9,6 @@ class ProductsRepositoryInterface(ABC):
     @abstractmethod
     def insert_product(self, name: str, price: float,
                        quantity: int) -> None: pass
+
+    @abstractmethod
+    def delete_product(self, name: str) -> None: pass

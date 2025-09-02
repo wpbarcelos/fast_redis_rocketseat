@@ -10,5 +10,8 @@
     "**/.hg": true,
     "**/.DS_Store": true,
     "**/Thumbs.db": true
+  },
+  "code-runner.executorMap": {
+    "python": "C:\\Users\\Wanderson\\projetos\\rocketseat\\python\\redis_python\\venv\\Scripts\\python.exe"
   }
 }

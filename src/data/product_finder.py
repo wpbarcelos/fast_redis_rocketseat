@@ -24,7 +24,7 @@ class ProductFinder:
     def __find_in_cache(self, product_name) -> tuple:
         product_infos = self.__redis_repo.get_key(product_name)
 
-        if not product_name:
+        if not product_infos:
             return None
 
         (price, quantity,) = product_infos.split(',')
@@ -40,7 +40,9 @@ class ProductFinder:
         return product
 
     def __save_in_cache(self, product: tuple) -> None:
-        pass
+        product_name = product[1]
+        product_data = f"{product[2]},{product[3]}"
+        self.__redis_repo.insert_ex(product_name, product_data, ex=60)
 
     def __format_response(self, product: tuple) -> HttpResponse:
         return HttpResponse(
